@@ -1,0 +1,20 @@
+1,QUESTION,What does “www” stand for in a website browser?
+1,CORRECT_ANSWER, World Wide Web
+1,INCORRECT_ANSWER, Wild Wild West
+1,INCORRECT_ANSWER, World Without Windows
+2,QUESTION, How long is an Olympic swimming pool?
+2,CORRECT_ANSWER, 50 meters
+2,INCORRECT_ANSWER, 25 meters
+2,INCORRECT_ANSWER, 50 feet
+3,QUESTION, Which country do cities of Perth & Adelaide & Brisbane belong to?
+3,CORRECT_ANSWER, Australia
+3,INCORRECT_ANSWER, Austria
+3,INCORRECT_ANSWER, France
+4,QUESTION, What geometric shape is generally used for "STOP" sign?
+4,CORRECT_ANSWER, Octagon
+4,INCORRECT_ANSWER, Pentagon
+4,INCORRECT_ANSWER, Triangle
+5,QUESTION, How many colors are there in the rainbow?
+5,CORRECT_ANSWER, One
+5,INCORRECT_ANSWER, Seven
+5,INCORRECT_ANSWER, Dozen

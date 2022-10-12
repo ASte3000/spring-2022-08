@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="quizElementDao" class="com.stquiz.dao.QuizDaoImpl">
+        <constructor-arg name="dataResourceKey" value="QuizElements.csv"/>
+    </bean>
+
+    <bean id="quizService" class="com.stquiz.service.QuizServiceImpl">
+        <constructor-arg name="dao" ref="quizElementDao"/>
+    </bean>
+
+</beans>

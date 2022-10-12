@@ -1,0 +1,23 @@
+plugins {
+    id 'idea'
+    id 'com.github.johnrengelman.shadow' version '6.1.0' apply false
+}
+
+idea {
+    project {
+        languageLevel = 11
+    }
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+allprojects {
+    group "com.stquiz"
+
+    repositories {
+        mavenCentral()
+    }
+
+}
