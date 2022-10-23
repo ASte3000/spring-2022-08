@@ -28,7 +28,7 @@ public class QuizDaoImpl implements QuizDao {
     public Collection<QuizElement> getQuizElements() {
         QuizEntriesContainer entriesContainer = new QuizEntriesContainer();
 
-        InputStream resourceStream = Main.class.getClassLoader().getResourceAsStream(dataResourceKey);
+        InputStream resourceStream = QuizDaoImpl.class.getClassLoader().getResourceAsStream(dataResourceKey);
         if (resourceStream == null) {
             throw new MissingResourceException("Missing resource", Main.class.getName(), dataResourceKey);
         }
