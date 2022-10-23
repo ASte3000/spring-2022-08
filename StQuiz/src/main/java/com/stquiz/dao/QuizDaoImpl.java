@@ -25,36 +25,32 @@ public class QuizDaoImpl implements QuizDao {
     }
 
     @Override
-    public Collection<QuizElement> getQuizElements() throws IOException {
+    public Collection<QuizElement> getQuizElements() {
         QuizEntriesContainer entriesContainer = new QuizEntriesContainer();
 
-        ICsvBeanReader beanReader = null;
-        try {
-            InputStream resourceStream = Main.class.getClassLoader().getResourceAsStream(dataResourceKey);
-            if (resourceStream == null) {
-                throw new MissingResourceException("Missing resource", Main.class.getName(), dataResourceKey);
-            }
+        InputStream resourceStream = Main.class.getClassLoader().getResourceAsStream(dataResourceKey);
+        if (resourceStream == null) {
+            throw new MissingResourceException("Missing resource", Main.class.getName(), dataResourceKey);
+        }
 
-            beanReader = new CsvBeanReader(new InputStreamReader(resourceStream), CsvPreference.STANDARD_PREFERENCE);
+        // the header elements are used to map the values to CsvEntry (names must match)
+        String[] header = {"Id", "Type", "Text"};
 
-            // the header elements are used to map the values to CsvEntry (names must match)
-            String[] header = {"Id", "Type", "Text"};
+        CellProcessor[] cellProcessors = new CellProcessor[] {
+            new ParseInt(),
+            new ParseEnum(QuizEntryType.class),
+            new Trim()
+        };
 
-            CellProcessor[] cellProcessors = new CellProcessor[] {
-                new ParseInt(),
-                new ParseEnum(QuizEntryType.class),
-                new Trim()
-            };
-
+        try (ICsvBeanReader beanReader =
+                     new CsvBeanReader(new InputStreamReader(resourceStream), CsvPreference.STANDARD_PREFERENCE))
+        {
             QuizEntry entry;
             while( (entry = beanReader.read(QuizEntry.class, header, cellProcessors)) != null ) {
                 entriesContainer.addEntry(entry);
             }
-
-        } finally {
-            if( beanReader != null ) {
-                beanReader.close();
-            }
+        } catch (IOException e) {
+            throw new QuizDaoException(e);
         }
 
         return entriesContainer.getQuizElements();
