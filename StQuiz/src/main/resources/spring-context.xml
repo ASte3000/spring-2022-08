@@ -9,8 +9,12 @@
         <constructor-arg name="dataResourceKey" value="QuizElements.csv"/>
     </bean>
 
+    <bean id="quizPrintService" class="com.stquiz.output.QuizPrintServiceImpl">
+    </bean>
+
     <bean id="quizService" class="com.stquiz.service.QuizServiceImpl">
         <constructor-arg name="dao" ref="quizElementDao"/>
+        <constructor-arg name="printService" ref="quizPrintService"/>
     </bean>
 
 </beans>
