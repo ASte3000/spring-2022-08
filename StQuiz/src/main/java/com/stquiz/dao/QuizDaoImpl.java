@@ -30,7 +30,7 @@ public class QuizDaoImpl implements QuizDao {
 
         InputStream resourceStream = QuizDaoImpl.class.getClassLoader().getResourceAsStream(dataResourceKey);
         if (resourceStream == null) {
-            throw new MissingResourceException("Missing resource", Main.class.getName(), dataResourceKey);
+            throw new MissingResourceException("Missing resource: " + dataResourceKey, Main.class.getName(), dataResourceKey);
         }
 
         // the header elements are used to map the values to CsvEntry (names must match)
