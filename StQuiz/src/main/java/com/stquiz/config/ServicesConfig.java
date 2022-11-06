@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+import java.io.PrintStream;
+
 @Configuration
 @PropertySource("classpath:config.properties")
 public class ServicesConfig {
@@ -26,8 +28,13 @@ public class ServicesConfig {
     }
 
     @Bean
-    public QuizPrintService quizPrintService() {
-        return new QuizPrintServiceImpl(System.out);
+    public QuizPrintService quizPrintService(PrintStream printStream) {
+        return new QuizPrintServiceImpl(printStream);
+    }
+
+    @Bean
+    public PrintStream printStream() {
+        return System.out;
     }
 
 }
