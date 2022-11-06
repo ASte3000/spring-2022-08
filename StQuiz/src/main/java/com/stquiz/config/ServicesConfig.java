@@ -14,7 +14,7 @@ import org.springframework.context.annotation.PropertySource;
 import java.io.PrintStream;
 
 @Configuration
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:quiz.properties")
 public class ServicesConfig {
 
     @Bean
