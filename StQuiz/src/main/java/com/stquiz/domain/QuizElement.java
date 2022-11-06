@@ -1,27 +1,28 @@
 package com.stquiz.domain;
 
-import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class QuizElement {
     private final String question;
-    private final Collection<String> answers;
-    private final String correctAnswer;
+    private final List<String> answers;
+    private final int correctAnswerIndex;
 
-    public QuizElement(String question, Collection<String> answers, String correctAnswer) {
+    public QuizElement(String question, List<String> answers, int correctAnswerIndex) {
         this.question = question;
-        this.answers = answers;
-        this.correctAnswer = correctAnswer;
+        this.answers = Collections.unmodifiableList(answers);
+        this.correctAnswerIndex = correctAnswerIndex;
     }
 
     public String getQuestion() {
         return question;
     }
 
-    public Collection<String> getAnswers() {
+    public List<String> getAnswers() {
         return answers;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
+    public int getCorrectAnswerIndex() {
+        return correctAnswerIndex;
     }
 }

@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.MissingResourceException;
 
 import com.sun.tools.javac.Main;
+import org.springframework.lang.NonNull;
 import org.supercsv.cellprocessor.ParseEnum;
 import org.supercsv.cellprocessor.ParseInt;
 import org.supercsv.cellprocessor.Trim;
@@ -24,6 +25,7 @@ public class QuizDaoImpl implements QuizDao {
         this.dataResourceKey = dataResourceKey;
     }
 
+    @NonNull
     @Override
     public Collection<QuizElement> getQuizElements() {
         QuizEntriesContainer entriesContainer = new QuizEntriesContainer();
@@ -43,7 +45,7 @@ public class QuizDaoImpl implements QuizDao {
         };
 
         try (ICsvBeanReader beanReader =
-                     new CsvBeanReader(new InputStreamReader(resourceStream), CsvPreference.STANDARD_PREFERENCE))
+             new CsvBeanReader(new InputStreamReader(resourceStream), CsvPreference.STANDARD_PREFERENCE))
         {
             QuizEntry entry;
             while( (entry = beanReader.read(QuizEntry.class, header, cellProcessors)) != null ) {

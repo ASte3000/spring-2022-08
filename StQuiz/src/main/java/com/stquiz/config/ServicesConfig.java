@@ -18,8 +18,8 @@ import java.io.PrintStream;
 public class ServicesConfig {
 
     @Bean
-    public QuizService quizService(QuizDao dao, QuizPrintService printService) {
-        return new QuizServiceImpl(dao, printService);
+    public QuizService quizService(QuizDao dao, QuizPrintService printService, @Value("${min.pass.score}") int minPassScore) {
+        return new QuizServiceImpl(dao, printService, minPassScore);
     }
 
     @Bean

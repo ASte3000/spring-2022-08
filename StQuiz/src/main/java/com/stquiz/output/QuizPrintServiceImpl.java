@@ -10,6 +10,11 @@ public class QuizPrintServiceImpl implements QuizPrintService {
     }
 
     @Override
+    public void print(String text) {
+        printStream.print(text);
+    }
+
+    @Override
     public void println() {
         printStream.println();
     }
