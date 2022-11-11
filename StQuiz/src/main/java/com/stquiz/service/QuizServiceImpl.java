@@ -2,19 +2,19 @@ package com.stquiz.service;
 
 import com.stquiz.dao.QuizDao;
 import com.stquiz.domain.QuizElement;
-import com.stquiz.output.QuizPrintService;
+import com.stquiz.io.IOService;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class QuizServiceImpl implements QuizService {
     private final QuizDao dao;
-    private final QuizPrintService printService;
+    private final IOService ioService;
     private final int minPassScore;
 
-    public QuizServiceImpl(QuizDao dao, QuizPrintService printService, int minPassScore) {
+    public QuizServiceImpl(QuizDao dao, IOService ioService, int minPassScore) {
         this.dao = dao;
-        this.printService = printService;
+        this.ioService = ioService;
         this.minPassScore = minPassScore;
     }
 
@@ -56,30 +56,28 @@ public class QuizServiceImpl implements QuizService {
     }
 
     private void printElement(QuizElement quizElement) {
-        printService.println();
-        printService.println("Question: " + quizElement.getQuestion());
+        ioService.println();
+        ioService.println("Question: " + quizElement.getQuestion());
 
         for (int i = 0; i < quizElement.getAnswers().size(); i++) {
-            printService.println(String.format("%d: " + quizElement.getAnswers().get(i), i + 1));
+            ioService.println(String.format("%d: " + quizElement.getAnswers().get(i), i + 1));
         }
     }
 
     private int getUserAnswerNumber(int userMaxIndex) {
-        Scanner scanner = new Scanner(System.in);
-
         while (true) {
             try {
-                printService.print("Please enter correct answer number: ");
-                String userAnswerString = scanner.nextLine();
+                ioService.print("Please enter correct answer number: ");
+                String userAnswerString = ioService.readln();
                 int userAnswerNumber = Integer.parseInt(userAnswerString);
                 if (userAnswerNumber >= 1 && userAnswerNumber <= userMaxIndex) {
                     return userAnswerNumber;
                 } else {
-                    printService.println(
+                    ioService.println(
                             String.format("Incorrect answer, should be more or equal to 1 and less or equal to %d", userMaxIndex));
                 }
             } catch (NumberFormatException e) {
-                printService.println("Incorrect answer format, please try again");
+                ioService.println("Incorrect answer format, please try again");
             }
         }
     }
@@ -90,13 +88,13 @@ public class QuizServiceImpl implements QuizService {
     }
 
     private void printCorrectAnswer(QuizElement quizElement, int userAnswerIndex) {
-        printService.println();
-        printService.println("Question: " + quizElement.getQuestion());
-        printService.println("User answer: " + quizElement.getAnswers().get(userAnswerIndex));
+        ioService.println();
+        ioService.println("Question: " + quizElement.getQuestion());
+        ioService.println("User answer: " + quizElement.getAnswers().get(userAnswerIndex));
         if (quizElement.getCorrectAnswerIndex() == userAnswerIndex) {
-            printService.println("CORRECT");
+            ioService.println("CORRECT");
         } else {
-            printService.println("INCORRECT. Correct answer: " +
+            ioService.println("INCORRECT. Correct answer: " +
                     quizElement.getAnswers().get(quizElement.getCorrectAnswerIndex()));
         }
     }
@@ -108,14 +106,14 @@ public class QuizServiceImpl implements QuizService {
                 .map(entry -> entry.getKey().getCorrectAnswerIndex() == entry.getValue() ? 1 : 0)
                 .reduce(0, Integer::sum);
 
-        printService.println();
-        printService.println(
+        ioService.println();
+        ioService.println(
                 String.format("Your result is %d out of %d", correctAnswersCount, userAnswerIndexesMap.size()));
 
         if (correctAnswersCount >= minPassScore) {
-            printService.println("Test passed");
+            ioService.println("Test passed");
         } else {
-            printService.println(String.format("Test failed. Minimum pass score is %d", minPassScore));
+            ioService.println(String.format("Test failed. Minimum pass score is %d", minPassScore));
         }
     }
 }
