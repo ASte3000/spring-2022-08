@@ -16,10 +16,10 @@ import org.springframework.context.annotation.PropertySource;
 public class ServicesConfig {
 
     @Bean
-    public QuizService quizService(QuizElementsPublisher quizElementsPublisher, QuizAnswersTaker answersTaker,
+    public QuizService quizService(QuizElementsService quizElementsService, QuizAnswersTaker answersTaker,
                                    QuizAnswersChecker answersChecker)
     {
-        return new QuizServiceImpl(quizElementsPublisher, answersTaker, answersChecker);
+        return new QuizServiceImpl(quizElementsService, answersTaker, answersChecker);
     }
 
     @Bean
@@ -28,8 +28,8 @@ public class ServicesConfig {
     }
 
     @Bean
-    public QuizElementsPublisher quizElementsPublisher(QuizDao dao) {
-        return new QuizElementsPublisherImpl(dao);
+    public QuizElementsService quizElementsPublisher(QuizDao dao) {
+        return new QuizElementsServiceImpl(dao);
     }
 
     @Bean

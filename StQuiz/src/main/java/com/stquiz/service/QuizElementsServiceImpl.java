@@ -9,17 +9,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class QuizElementsPublisherImpl implements QuizElementsPublisher {
+public class QuizElementsServiceImpl implements QuizElementsService {
     private static final int SWAP_ROUNDS_COUNT = 10;
 
     private final QuizDao dao;
 
-    public QuizElementsPublisherImpl(QuizDao dao) {
+    public QuizElementsServiceImpl(QuizDao dao) {
         this.dao = dao;
     }
 
     @Override
-    public List<QuizElement> getPublishableQuizElements() {
+    public List<QuizElement> getPreparedQuizElements() {
         Collection<QuizElement> rawElements = dao.getQuizElements();
 
         return rawElements
