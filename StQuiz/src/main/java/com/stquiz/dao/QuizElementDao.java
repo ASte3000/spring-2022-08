@@ -5,7 +5,7 @@ import org.springframework.lang.NonNull;
 
 import java.util.Collection;
 
-public interface QuizDao {
+public interface QuizElementDao {
     @NonNull
     Collection<QuizElement> getQuizElements();
 }

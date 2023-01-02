@@ -1,7 +1,7 @@
 package com.stquiz.config;
 
-import com.stquiz.dao.QuizDao;
-import com.stquiz.dao.QuizDaoImpl;
+import com.stquiz.dao.QuizElementDao;
+import com.stquiz.dao.QuizElementDaoImpl;
 import com.stquiz.io.IOService;
 import com.stquiz.io.ConsoleIOServiceImpl;
 import com.stquiz.service.*;
@@ -23,12 +23,12 @@ public class ServicesConfig {
     }
 
     @Bean
-    public QuizDao quizDao(@Value("${data.resource.key}") String dataResourceKey) {
-        return new QuizDaoImpl(dataResourceKey);
+    public QuizElementDao quizDao(@Value("${data.resource.key}") String dataResourceKey) {
+        return new QuizElementDaoImpl(dataResourceKey);
     }
 
     @Bean
-    public QuizElementsService quizElementsPublisher(QuizDao dao) {
+    public QuizElementsService quizElementsPublisher(QuizElementDao dao) {
         return new QuizElementsServiceImpl(dao);
     }
 

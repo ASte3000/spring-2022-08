@@ -1,6 +1,6 @@
 package com.stquiz.service;
 
-import com.stquiz.dao.QuizDao;
+import com.stquiz.dao.QuizElementDao;
 import com.stquiz.domain.QuizElement;
 
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 public class QuizElementsServiceImpl implements QuizElementsService {
     private static final int SWAP_ROUNDS_COUNT = 10;
 
-    private final QuizDao dao;
+    private final QuizElementDao dao;
 
-    public QuizElementsServiceImpl(QuizDao dao) {
+    public QuizElementsServiceImpl(QuizElementDao dao) {
         this.dao = dao;
     }
 

@@ -18,10 +18,10 @@ import org.supercsv.io.CsvBeanReader;
 import org.supercsv.io.ICsvBeanReader;
 import org.supercsv.prefs.CsvPreference;
 
-public class QuizDaoImpl implements QuizDao {
+public class QuizElementDaoImpl implements QuizElementDao {
     private final String dataResourceKey;
 
-    public QuizDaoImpl(String dataResourceKey) {
+    public QuizElementDaoImpl(String dataResourceKey) {
         this.dataResourceKey = dataResourceKey;
     }
 
@@ -30,7 +30,7 @@ public class QuizDaoImpl implements QuizDao {
     public Collection<QuizElement> getQuizElements() {
         QuizEntriesContainer entriesContainer = new QuizEntriesContainer();
 
-        InputStream resourceStream = QuizDaoImpl.class.getClassLoader().getResourceAsStream(dataResourceKey);
+        InputStream resourceStream = QuizElementDaoImpl.class.getClassLoader().getResourceAsStream(dataResourceKey);
         if (resourceStream == null) {
             throw new MissingResourceException("Missing resource: " + dataResourceKey, Main.class.getName(), dataResourceKey);
         }
@@ -52,7 +52,7 @@ public class QuizDaoImpl implements QuizDao {
                 entriesContainer.addEntry(entry);
             }
         } catch (IOException e) {
-            throw new QuizDaoException(e);
+            throw new QuizElementDaoException(e);
         }
 
         return entriesContainer.getQuizElements();
