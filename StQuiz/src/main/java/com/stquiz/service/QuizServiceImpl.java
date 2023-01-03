@@ -1,33 +1,30 @@
 package com.stquiz.service;
 
-import com.stquiz.dao.QuizDao;
 import com.stquiz.domain.QuizElement;
-import com.stquiz.output.QuizPrintService;
+import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.*;
 
+@Service
 public class QuizServiceImpl implements QuizService {
-    private final QuizDao dao;
-    private final QuizPrintService printService;
+    private final QuizElementsService elementsService;
+    private final QuizInputService inputService;
+    private final QuizAnswersChecker answersChecker;
 
-    public QuizServiceImpl(QuizDao dao, QuizPrintService printService) {
-        this.dao = dao;
-        this.printService = printService;
+    public QuizServiceImpl(QuizElementsService elementsService, QuizInputService inputService, QuizAnswersChecker answersChecker) {
+        this.elementsService = elementsService;
+        this.inputService = inputService;
+        this.answersChecker = answersChecker;
     }
 
     @Override
-    public void printElements() {
-        Collection<QuizElement> quizElements = dao.getQuizElements();
+    public void runQuiz() {
+        String userName = inputService.takeUserName();
 
-        if (quizElements != null) {
-            quizElements.forEach(this::printElement);
-        }
-    }
+        List<QuizElement> quizElements = elementsService.getPreparedQuizElements();
+        List<QuizUserAnswer> userAnswers = inputService.takeUserAnswers(quizElements);
 
-    private void printElement(QuizElement quizElement) {
-        printService.println();
-        printService.println("Question: " + quizElement.getQuestion());
-        quizElement.getAnswers().forEach(answer ->
-            printService.println("Answer: " + answer));
+        answersChecker.printCorrectAnswers(userAnswers);
+        answersChecker.printResult(userName, userAnswers);
     }
 }

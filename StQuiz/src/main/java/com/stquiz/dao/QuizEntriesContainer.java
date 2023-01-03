@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class QuizEntriesContainer {
     private final Map<Integer, String> questionsMap = new HashMap<>();
     private final Map<Integer, List<String>> allAnswersMap = new HashMap<>();
-    private final Map<Integer, String> correctAnswersMap = new HashMap<>();
+    private final Map<Integer, Integer> correctAnswerIndexesMap = new HashMap<>();
 
     public void addEntry(QuizEntry entry) {
         int id = entry.getId();
@@ -29,7 +29,7 @@ public class QuizEntriesContainer {
         }
     }
 
-    public Collection<QuizElement> getQuizElements() {
+    public List<QuizElement> getQuizElements() {
         return questionsMap.entrySet().stream()
                 .map(this::getQuizElement)
                 .collect(Collectors.toList());
@@ -39,20 +39,20 @@ public class QuizEntriesContainer {
         int id = questionsMapEntry.getKey();
         String question = questionsMapEntry.getValue();
         List<String> allAnswers = allAnswersMap.get(id);
-        String correctAnswer = correctAnswersMap.get(id);
+        int correctAnswerIndex = correctAnswerIndexesMap.get(id);
 
-        return new QuizElement(question, allAnswers, correctAnswer);
+        return new QuizElement(question, allAnswers, correctAnswerIndex);
     }
 
     private void addQuestion(int id, String text) {
         questionsMap.put(id, text);
     }
 
-
-
     private void addCorrectAnswer(int id, String text) {
-        correctAnswersMap.put(id, text);
         addAnswer(id, text);
+
+        int correctIndex = allAnswersMap.get(id).indexOf(text);
+        correctAnswerIndexesMap.put(id, correctIndex);
     }
 
     private void addIncorrectAnswer(int id, String text) {
