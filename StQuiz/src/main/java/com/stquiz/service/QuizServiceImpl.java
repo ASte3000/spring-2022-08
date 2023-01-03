@@ -1,9 +1,11 @@
 package com.stquiz.service;
 
 import com.stquiz.domain.QuizElement;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class QuizServiceImpl implements QuizService {
     private final QuizElementsService elementsService;
     private final QuizAnswersTaker answersTaker;

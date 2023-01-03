@@ -16,25 +16,8 @@ import org.springframework.context.annotation.PropertySource;
 public class ServicesConfig {
 
     @Bean
-    public QuizService quizService(QuizElementsService quizElementsService, QuizAnswersTaker answersTaker,
-                                   QuizAnswersChecker answersChecker)
-    {
-        return new QuizServiceImpl(quizElementsService, answersTaker, answersChecker);
-    }
-
-    @Bean
     public QuizElementDao quizDao(@Value("${data.resource.key}") String dataResourceKey) {
         return new QuizElementDaoImpl(dataResourceKey);
-    }
-
-    @Bean
-    public QuizElementsService quizElementsPublisher(QuizElementDao dao) {
-        return new QuizElementsServiceImpl(dao);
-    }
-
-    @Bean
-    public QuizAnswersTaker quizAnswersTaker(IOService ioService) {
-        return new QuizAnswersTakerImpl(ioService);
     }
 
     @Bean

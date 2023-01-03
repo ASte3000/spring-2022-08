@@ -2,10 +2,12 @@ package com.stquiz.service;
 
 import com.stquiz.domain.QuizElement;
 import com.stquiz.io.IOService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class QuizAnswersTakerImpl implements QuizAnswersTaker {
     private final IOService ioService;
 

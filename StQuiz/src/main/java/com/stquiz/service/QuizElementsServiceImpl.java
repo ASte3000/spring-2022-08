@@ -2,6 +2,7 @@ package com.stquiz.service;
 
 import com.stquiz.dao.QuizElementDao;
 import com.stquiz.domain.QuizElement;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class QuizElementsServiceImpl implements QuizElementsService {
     private static final int SWAP_ROUNDS_COUNT = 10;
 
