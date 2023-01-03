@@ -45,6 +45,7 @@ class QuizAnswersCheckerImplTest {
 	@Test
 	void printResult() {
 		String expectedResult = "\n" +
+			"Bill Johnson,\n" +
 			"Your result is 1 out of 3\n" +
 			"Test failed. Minimum pass score is 2" +
 			"\n";
@@ -59,7 +60,7 @@ class QuizAnswersCheckerImplTest {
 		for (int i = 0; i < elements.size(); i++)
 			userAnswers.add(new QuizUserAnswer(elements.get(i), i));
 
-		checker.printResult(userAnswers);
+		checker.printResult("Bill Johnson", userAnswers);
 
 		assertEquals(expectedResult, testingIOService.getResult());
 	}

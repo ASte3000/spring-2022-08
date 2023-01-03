@@ -8,21 +8,23 @@ import java.util.*;
 @Service
 public class QuizServiceImpl implements QuizService {
     private final QuizElementsService elementsService;
-    private final QuizAnswersTaker answersTaker;
+    private final QuizInputService inputService;
     private final QuizAnswersChecker answersChecker;
 
-    public QuizServiceImpl(QuizElementsService elementsService, QuizAnswersTaker answersTaker, QuizAnswersChecker answersChecker) {
+    public QuizServiceImpl(QuizElementsService elementsService, QuizInputService inputService, QuizAnswersChecker answersChecker) {
         this.elementsService = elementsService;
-        this.answersTaker = answersTaker;
+        this.inputService = inputService;
         this.answersChecker = answersChecker;
     }
 
     @Override
     public void runQuiz() {
+        String userName = inputService.takeUserName();
+
         List<QuizElement> quizElements = elementsService.getPreparedQuizElements();
-        List<QuizUserAnswer> userAnswers = answersTaker.takeUserAnswers(quizElements);
+        List<QuizUserAnswer> userAnswers = inputService.takeUserAnswers(quizElements);
 
         answersChecker.printCorrectAnswers(userAnswers);
-        answersChecker.printResult(userAnswers);
+        answersChecker.printResult(userName, userAnswers);
     }
 }

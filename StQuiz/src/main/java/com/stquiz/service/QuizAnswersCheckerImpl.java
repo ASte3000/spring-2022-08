@@ -20,13 +20,15 @@ public class QuizAnswersCheckerImpl implements QuizAnswersChecker {
     }
 
     @Override
-    public void printResult(List<QuizUserAnswer> userAnswers) {
+    public void printResult(String userName, List<QuizUserAnswer> userAnswers) {
+        ioService.println();
+        ioService.println(String.format("%s,", userName));
+
         int correctAnswersCount =
             userAnswers.stream()
                 .map(ua -> ua.getQuizElement().getCorrectAnswerIndex() == ua.getUserAnswerIndex() ? 1 : 0)
                 .reduce(0, Integer::sum);
 
-        ioService.println();
         ioService.println(
                 String.format("Your result is %d out of %d", correctAnswersCount, userAnswers.size()));
 

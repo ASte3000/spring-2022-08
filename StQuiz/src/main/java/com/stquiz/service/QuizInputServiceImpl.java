@@ -8,11 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class QuizAnswersTakerImpl implements QuizAnswersTaker {
+public class QuizInputServiceImpl implements QuizInputService {
     private final IOService ioService;
 
-    public QuizAnswersTakerImpl(IOService ioService) {
+    public QuizInputServiceImpl(IOService ioService) {
         this.ioService = ioService;
+    }
+
+    @Override
+    public String takeUserName() {
+        ioService.print("Please enter your first name: ");
+        String firstName = ioService.readln();
+
+        ioService.print("Please enter your last name: ");
+        String lastName = ioService.readln();
+
+        return String.format("%s %s", firstName, lastName);
     }
 
     @Override
