@@ -44,7 +44,7 @@ public class ServicesConfig {
 
     @Bean
     public IOService quizIOService() {
-        return new ConsoleIOServiceImpl();
+        return new ConsoleIOServiceImpl(System.in, System.out);
     }
 
 }

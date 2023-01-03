@@ -29,7 +29,7 @@ public class QuizEntriesContainer {
         }
     }
 
-    public Collection<QuizElement> getQuizElements() {
+    public List<QuizElement> getQuizElements() {
         return questionsMap.entrySet().stream()
                 .map(this::getQuizElement)
                 .collect(Collectors.toList());

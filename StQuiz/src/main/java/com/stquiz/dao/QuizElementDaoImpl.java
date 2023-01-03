@@ -5,7 +5,7 @@ import com.stquiz.domain.QuizElement;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Collection;
+import java.util.List;
 import java.util.MissingResourceException;
 
 import com.sun.tools.javac.Main;
@@ -27,7 +27,7 @@ public class QuizElementDaoImpl implements QuizElementDao {
 
     @NonNull
     @Override
-    public Collection<QuizElement> getQuizElements() {
+    public List<QuizElement> getQuizElements() {
         QuizEntriesContainer entriesContainer = new QuizEntriesContainer();
 
         InputStream resourceStream = QuizElementDaoImpl.class.getClassLoader().getResourceAsStream(dataResourceKey);
