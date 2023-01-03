@@ -18,9 +18,9 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public void runQuiz() {
         List<QuizElement> quizElements = elementsService.getPreparedQuizElements();
-        Map<QuizElement, Integer> userAnswerIndexesMap = answersTaker.takeUserAnswers(quizElements);
+        List<QuizUserAnswer> userAnswers = answersTaker.takeUserAnswers(quizElements);
 
-        answersChecker.printCorrectAnswers(userAnswerIndexesMap);
-        answersChecker.printResult(userAnswerIndexesMap);
+        answersChecker.printCorrectAnswers(userAnswers);
+        answersChecker.printResult(userAnswers);
     }
 }

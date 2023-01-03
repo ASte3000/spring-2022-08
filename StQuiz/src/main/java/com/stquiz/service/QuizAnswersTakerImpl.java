@@ -3,9 +3,8 @@ package com.stquiz.service;
 import com.stquiz.domain.QuizElement;
 import com.stquiz.io.IOService;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class QuizAnswersTakerImpl implements QuizAnswersTaker {
     private final IOService ioService;
@@ -15,14 +14,14 @@ public class QuizAnswersTakerImpl implements QuizAnswersTaker {
     }
 
     @Override
-    public Map<QuizElement, Integer> takeUserAnswers(List<QuizElement> quizElements) {
-        Map<QuizElement, Integer> userAnswerIndexesMap = new HashMap<>();
+    public List<QuizUserAnswer> takeUserAnswers(List<QuizElement> quizElements) {
+        List<QuizUserAnswer> userAnswers = new ArrayList<>();
         quizElements.forEach(quizElement -> {
             int userAnswerIndex = runQuestion(quizElement);
-            userAnswerIndexesMap.put(quizElement, userAnswerIndex);
+            userAnswers.add(new QuizUserAnswer(quizElement, userAnswerIndex));
         });
 
-        return userAnswerIndexesMap;
+        return userAnswers;
     }
 
     private int runQuestion(QuizElement quizElement) {

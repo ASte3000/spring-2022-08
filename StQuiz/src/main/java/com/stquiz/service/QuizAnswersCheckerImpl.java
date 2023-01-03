@@ -3,7 +3,7 @@ package com.stquiz.service;
 import com.stquiz.domain.QuizElement;
 import com.stquiz.io.IOService;
 
-import java.util.Map;
+import java.util.List;
 
 public class QuizAnswersCheckerImpl implements QuizAnswersChecker {
     private final IOService ioService;
@@ -15,21 +15,20 @@ public class QuizAnswersCheckerImpl implements QuizAnswersChecker {
     }
 
     @Override
-    public void printCorrectAnswers(Map<QuizElement, Integer> userAnswerIndexesMap) {
-        userAnswerIndexesMap.keySet().forEach(quizElement -> printCorrectAnswer(quizElement, userAnswerIndexesMap.get(quizElement)));
+    public void printCorrectAnswers(List<QuizUserAnswer> userAnswers) {
+        userAnswers.forEach(ua -> printCorrectAnswer(ua.getQuizElement(), ua.getUserAnswerIndex()));
     }
 
     @Override
-    public void printResult(Map<QuizElement, Integer> userAnswerIndexesMap) {
+    public void printResult(List<QuizUserAnswer> userAnswers) {
         int correctAnswersCount =
-                userAnswerIndexesMap.entrySet()
-                        .stream()
-                        .map(entry -> entry.getKey().getCorrectAnswerIndex() == entry.getValue() ? 1 : 0)
-                        .reduce(0, Integer::sum);
+            userAnswers.stream()
+                .map(ua -> ua.getQuizElement().getCorrectAnswerIndex() == ua.getUserAnswerIndex() ? 1 : 0)
+                .reduce(0, Integer::sum);
 
         ioService.println();
         ioService.println(
-                String.format("Your result is %d out of %d", correctAnswersCount, userAnswerIndexesMap.size()));
+                String.format("Your result is %d out of %d", correctAnswersCount, userAnswers.size()));
 
         if (correctAnswersCount >= minPassScore) {
             ioService.println("Test passed");
@@ -46,7 +45,7 @@ public class QuizAnswersCheckerImpl implements QuizAnswersChecker {
             ioService.println("CORRECT");
         } else {
             ioService.println("INCORRECT. Correct answer: " +
-                    quizElement.getAnswers().get(quizElement.getCorrectAnswerIndex()));
+                quizElement.getAnswers().get(quizElement.getCorrectAnswerIndex()));
         }
     }
 }
